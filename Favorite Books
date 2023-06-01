@@ -1,0 +1,13 @@
+-- Create A favorite books database
+
+CREATE TABLE Favorite_Books (id INTEGER PRIMARY KEY, name TEXT, rating INTEGER);
+
+INSERT INTO Favorite_Books VALUES
+(1,'Think Like A Monk',1),
+(2,'Rich Dad Poor Dad',2),
+(3,'The Way Of The Superior Man',3)
+
+-- Display data from least favorite to most favorite
+Select names
+FROM Favorite_Books
+ORDER BY names ASC;

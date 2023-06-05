@@ -1,0 +1,42 @@
+-- Create a vinyle record store database
+
+CREATE TABLE vinyl_record_store (id INTEGER PRIMARY KEY, artist TEXT, album TEXT, genre TEXT, price REAL);
+
+INSERT INTO vinyl_record_store VALUES
+
+(1, "MF DOOM", "DOOMSDAY", "Hip Hop", 43.00);
+
+(2, "MF DOOM", "Madvillainy", "Hip Hop", 26.99); 
+
+(3, "Mac Miller", "K.I.D.S", "Hip Hop", 30.00);
+
+(4, "King Krule", "The OOZ", "Alternative", 29.99);
+
+(5, "Currensy", "Covert Coup", "Hip Hop", 45.00);
+
+(6, "The Neighbourhood", "The Neighbourhood", "Alternative/Indie", 49.35);
+
+(7, "Rage Against The Machine", "People Of Sun", "Rock", 19.71);
+
+(8, "The Smashing Pumpkins", "Siamese Dreams", "Alternative Rock", 49.96);
+
+(9, "Big Pun", "Capital Punishment", "Hip Hop", 24.49);
+
+(10, "Brent Faiyaz", "Sonder Son", "R & B", 324.99);
+
+(11, "Foo Fighters", "The Color And The Shape", "Rock", 22.90);
+
+(12, "N.E.R.D", "In Search Of", "Alternative", 36.99);
+
+(13, "N.E.R.D", "Seeing Sounds", "Alternative", 125.00);
+
+(14, "Pharrell", "In My Mind", "Hip Hop", 129.99);
+
+(15, "Nujabes", "Modal Soul", "Hip Hop/Jazz", 52.00);
+
+
+-- display album price from lowest to highest
+SELECT *
+FROM vinyl_record_store
+ORDER BY price desc;
+

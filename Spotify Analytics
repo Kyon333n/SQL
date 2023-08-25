@@ -1,0 +1,84 @@
+# I downloaded a Spotify data project from Kaggle.
+# I then created a table to insert Spotify data into.
+# Lastly, I used SQL to dig deeper into the data. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+# Then I inserted the Spotify Data .csv into the table.
+
+# Next, I created questions I had about the data and explored it using the following SQL. 
+
+#1. Which artist is the most popular?
+
+SELECT DISTINCT artist_name, MAX(popularity)
+FROM BIT_DB.Spotifydata
+WHERE popularity >94
+Group By popularity 
+LIMIT 1;
+
+#2. How many artist had a popularity over 85?
+
+SELECT DISTINCT popularity,artist_name
+FROM BIT_DB.Spotifydata
+WHERE popularity >84
+GROUP BY artist_name
+ORDER BY popularity desc; 
+
+#3. What is the track name for the song with the highest energy?
+
+SELECT track_name, MAX(energy) AS Highest_Energy
+FROM BIT_DB.Spotifydata
+WHERE energy <> 'Highest Energy'
+GROUP BY track_name
+ORDER BY energy desc
+LIMIT 1;
+
+#4. What is the track name for the song with the lowest energy?
+
+SELECT track_name, MIN(energy) AS Lowest_Energy
+FROM BIT_DB.Spotifydata
+GROUP BY energy
+ORDER BY energy 
+LIMIT 1;
+
+#5. Which tracks had a tempo over 130 BPM?
+
+SELECT DISTINCT track_name, tempo
+FROM BIT_DB.Spotifydata
+WHERE tempo > 130
+ORDER BY tempo ASC;
+
+#6. How many songs had a song key over 8?
+
+SELECT song_key, track_name
+FROM BIT_DB.Spotifydata
+WHERE song_key >8
+ORDER By song_key asc
+
+#7. Who is the artist that created the song "Sweater Weather"?
+
+SELECT DISTINCT artist_name, Track_name
+FROM BIT_DB.Spotifydata
+WHERE Track_name LIKE '%Sweater Weather%'
+AND artist_name <> 'Artist'
+AND track_name <> 'Track';

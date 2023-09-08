@@ -1,0 +1,67 @@
+~ This is a dataset called chinook, which contains a digital media store and includes tables for artists, albums, media tracks, invoices, and customers.
+
+~ I created a few questions about the dataset and used SQL code to gather deeper insights.
+
+
+
+#1. Which customers are not in the U.S?
+
+SELECT Country, FirstName, LastName, CustomerId
+FROM chinook.customers
+WHERE Country <> 'U.S';
+
+#2. Which customers are only from Brazil? I also included the customer ID to better identify exactly which customer is from Brazil.
+
+SELECT Country, FirstName, LastName, CustomerId
+FROM chinook.customers
+WHERE Country = 'Brazil';
+
+#3. Which employees are Sales Agents?
+
+SELECT employeeid, firstname, lastname, title AS 'Sales Agent'
+FROM chinook.employees
+WHERE title LIKE '%Sales Support Agent%'
+
+#4. Every country that begin with the letter C. I've also included the city.
+
+SELECT DISTINCT billingcountry,billingcity 
+FROM chinook.invoices
+WHERE billingcountry LIKE 'C%'
+ORDER BY billingcountry desc;
+
+#5. What was the total number of invoices in the year 2009?
+
+SELECT COUNT(*) AS total_invoices
+FROM chinook.invoices
+WHERE invoicedate >= '2009-01-01' AND invoicedate <= '2009-12-31';
+
+#6. What was the total revenue for the year 2009?
+
+SELECT SUM(Total) AS total_revenue
+FROM chinook.invoices
+WHERE invoicedate >= '2009-01-01' AND invoicedate <= '2009-12-31'
+
+#7. What was the total sales made by each sales agent?
+
+SELECT 
+    employees.EmployeeID,
+    employees.FirstName,
+    employees.LastName,
+    employees.Title,
+    SUM(Invoices.Total) AS TotalSales
+FROM 
+    chinook.employees AS employees
+LEFT JOIN 
+    chinook.customers AS customers
+ON 
+    employees.EmployeeId = customers.SupportRepId
+INNER JOIN 
+    chinook.invoices AS Invoices
+ON 
+    customers.CustomerId = Invoices.CustomerId
+WHERE 
+    employees.Title = 'Sales Support Agent'
+GROUP BY 
+    employees.EmployeeId, employees.FirstName, employees.LastName, employees.Title;
+
+
